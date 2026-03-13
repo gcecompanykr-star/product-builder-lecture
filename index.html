@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotto Number Generator</title>
+    <title>Startup & Life Quotes | Lunch Roulette</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,23 +11,25 @@
         <button id="theme-btn">🌙 Dark Mode</button>
     </div>
     <div class="container">
-        <h1>Lotto Number Generator</h1>
+        <h1>Startup & Life</h1>
         
-        <div class="section calendar-section">
-            <h2 id="current-date"></h2>
-            <div id="calendar" class="calendar-grid"></div>
+        <div class="section quote-section">
+            <h2>Today's Quote</h2>
+            <div id="quote-container">
+                <p id="quote-en" class="quote-text">Click the button to get inspired!</p>
+                <p id="quote-ko" class="quote-subtext">버튼을 눌러 영감을 얻으세요!</p>
+            </div>
+            <button id="quote-btn">New Quote</button>
         </div>
 
-        <div class="section fortune-section">
-            <h2>Today's Fortune</h2>
-            <p id="fortune-text">Click the button to see your fortune!</p>
-            <button id="fortune-btn">Get Fortune</button>
-        </div>
-
-        <div class="section lotto-section">
-            <h2>Lotto Numbers</h2>
-            <div id="lotto-numbers" class="lotto-numbers-container"></div>
-            <button id="generate-btn">Generate Numbers</button>
+        <div class="section lunch-section">
+            <h2>Lunch Roulette</h2>
+            <div class="roulette-wrapper">
+                <div id="roulette-wheel" class="wheel"></div>
+                <div class="pointer">▼</div>
+            </div>
+            <div id="selected-menu">What's for lunch?</div>
+            <button id="spin-btn">Spin the Wheel!</button>
         </div>
     </div>
     <script src="main.js"></script>
