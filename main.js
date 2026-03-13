@@ -22,12 +22,15 @@ if (themeBtn) {
     });
 }
 
-// --- Quotes Data ---
+// --- Quotes Data with Korean Authors ---
 const quotes = [
-    { en: "The way to get started is to quit talking and begin doing.", ko: "시작하는 방법은 말하기를 그만두고 행동하는 것이다.", author: "Walt Disney" },
-    { en: "Your time is limited, so don't waste it living someone else's life.", ko: "당신의 시간은 한정되어 있으니, 다른 사람의 삶을 사느라 낭비하지 마라.", author: "Steve Jobs" },
-    { en: "Done is better than perfect.", ko: "완수하는 것이 완벽한 것보다 낫다.", author: "Sheryl Sandberg" },
-    { en: "Stay hungry, stay foolish.", ko: "계속 갈망하라, 여전히 우직하게.", author: "Steve Jobs" }
+    { en: "The way to get started is to quit talking and begin doing.", ko: "시작하는 방법은 말하기를 그만두고 행동하는 것이다.", author: "Walt Disney", authorKo: "월트 디즈니" },
+    { en: "Your time is limited, so don't waste it living someone else's life.", ko: "당신의 시간은 한정되어 있으니, 다른 사람의 삶을 사느라 낭비하지 마라.", author: "Steve Jobs", authorKo: "스티브 잡스" },
+    { en: "Done is better than perfect.", ko: "완수하는 것이 완벽한 것보다 낫다.", author: "Sheryl Sandberg", authorKo: "셰릴 샌드버그" },
+    { en: "Stay hungry, stay foolish.", ko: "계속 갈망하라, 여전히 우직하게.", author: "Steve Jobs", authorKo: "스티브 잡스" },
+    { en: "The only way to do great work is to love what you do.", ko: "위대한 일을 하는 유일한 방법은 당신이 하는 일을 사랑하는 것이다.", author: "Steve Jobs", authorKo: "스티브 잡스" },
+    { en: "Innovation distinguishes between a leader and a follower.", ko: "혁신은 리더와 추종자를 구분하는 잣대다.", author: "Steve Jobs", authorKo: "스티브 잡스" },
+    { en: "If you look at what you have in life, you'll always have more.", ko: "당신이 가진 것에 주목한다면 항상 더 많이 갖게 될 것이다.", author: "Oprah Winfrey", authorKo: "오프라 윈프리" }
 ];
 
 function getRandomQuote() {
@@ -41,7 +44,7 @@ function getRandomQuote() {
     setTimeout(() => {
         quoteEn.textContent = `"${quote.en}"`;
         quoteKo.textContent = quote.ko;
-        quoteAuthor.textContent = `- ${quote.author}`;
+        quoteAuthor.textContent = `- ${quote.author} (${quote.authorKo})`;
         quoteEn.style.opacity = 1;
         quoteKo.style.opacity = 1;
         quoteAuthor.style.opacity = 1;
@@ -50,11 +53,26 @@ function getRandomQuote() {
 if (quoteBtn) quoteBtn.addEventListener('click', getRandomQuote);
 
 // --- Lunch Roulette ---
-let menus = ["김치찌개", "짜장면", "파스타", "비빔밥", "치킨", "돈까스", "쌀국수", "부대찌개"];
+let menus = ["김치찌개", "짜장면", "파스타", "비빔밥", "치킨", "돈까스", "쌀국수", "부대찌개", "제육볶음", "햄버거", "샐러드", "초밥"];
+const menuImageMap = {
+    "김치찌개": "kimchi,stew",
+    "짜장면": "jajangmyeon,noodles",
+    "파스타": "pasta",
+    "비빔밥": "bibimbap",
+    "치킨": "fried,chicken",
+    "돈까스": "tonkatsu,pork,cutlet",
+    "쌀국수": "pho,noodles",
+    "부대찌개": "army,stew,korean",
+    "제육볶음": "spicy,pork",
+    "햄버거": "hamburger",
+    "샐러드": "salad",
+    "초밥": "sushi"
+};
+
 let history = [];
 let isSpinning = false;
 let rotation = 0;
-const colors = ["#f8dada", "#dcf8da", "#dadcf8", "#f8f8da", "#daf8f8", "#f8daf8"];
+const colors = ["#f8dada", "#dcf8da", "#dadcf8", "#f8f8da", "#daf8f8", "#f8daf8", "#e6f8da", "#dae6f8"];
 
 function drawRoulette() {
     if (!canvas || !ctx) return;
@@ -124,7 +142,8 @@ function updateHistory(menu) {
 
 function fetchFoodImage(menu) {
     if (!foodImageContainer) return;
-    foodImageContainer.innerHTML = `<img src="https://loremflickr.com/300/200/food,${menu}" alt="${menu}">`;
+    const searchTag = menuImageMap[menu] || "food";
+    foodImageContainer.innerHTML = `<img src="https://loremflickr.com/400/300/${searchTag}" alt="${menu}">`;
 }
 
 // --- Animal Test ---
