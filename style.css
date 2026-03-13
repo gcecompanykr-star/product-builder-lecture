@@ -166,7 +166,73 @@ button {
 button:hover { transform: translateY(-2px); opacity: 0.9; }
 #spin-btn { background-color: var(--primary-color); width: 100%; max-width: 300px; }
 
+/* Contact Form */
+.contact-section {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: none;
+}
+
+.section-desc {
+    margin-bottom: 2rem;
+    opacity: 0.8;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background-color: rgba(0,0,0,0.02);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+    background-color: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    background-color: white;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus {
+    background-color: #2a2a2a;
+}
+
+#submit-btn {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+#form-status {
+    margin-top: 1rem;
+    font-weight: 600;
+}
 @media (max-width: 768px) {
     .main-layout { flex-direction: column; align-items: center; }
     .roulette-wrapper { width: 300px; height: 300px; }
 }
+

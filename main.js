@@ -170,3 +170,45 @@ spinBtn.addEventListener('click', () => {
 // Initialize
 getRandomQuote();
 drawRoulette();
+
+// --- Contact Form Handling ---
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+
+contactForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const submitBtn = document.getElementById('submit-btn');
+    
+    submitBtn.disabled = true;
+    submitBtn.textContent = '보내는 중...';
+    
+    fetch(event.target.action, {
+        method: contactForm.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            formStatus.textContent = "문의가 성공적으로 전송되었습니다. 곧 연락드리겠습니다!";
+            formStatus.style.color = "var(--primary-color)";
+            contactForm.reset();
+        } else {
+            response.json().then(data => {
+                if (Object.hasOwn(data, 'errors')) {
+                    formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
+                } else {
+                    formStatus.textContent = "오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+                }
+                formStatus.style.color = "var(--accent-color)";
+            })
+        }
+    }).catch(error => {
+        formStatus.textContent = "오류가 발생했습니다. 네트워크 연결을 확인해주세요.";
+        formStatus.style.color = "var(--accent-color)";
+    }).finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '문의하기';
+    });
+});
