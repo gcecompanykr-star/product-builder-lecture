@@ -44,7 +44,7 @@ function getRandomQuote() {
     setTimeout(() => {
         quoteEn.textContent = `"${quote.en}"`;
         quoteKo.textContent = quote.ko;
-        quoteAuthor.textContent = `- ${quote.author} (${quote.authorKo})`;
+        quoteAuthor.textContent = `- ${quote.authorKo}`;
         quoteEn.style.opacity = 1;
         quoteKo.style.opacity = 1;
         quoteAuthor.style.opacity = 1;
