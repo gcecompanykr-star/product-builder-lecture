@@ -7,10 +7,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="theme-toggle">
+        <button id="theme-btn">🌙 Dark Mode</button>
+    </div>
     <div class="container">
         <h1>Lotto Number Generator</h1>
-        <div id="lotto-numbers" class="lotto-numbers-container"></div>
-        <button id="generate-btn">Generate Numbers</button>
+        
+        <div class="section calendar-section">
+            <h2 id="current-date"></h2>
+            <div id="calendar" class="calendar-grid"></div>
+        </div>
+
+        <div class="section fortune-section">
+            <h2>Today's Fortune</h2>
+            <p id="fortune-text">Click the button to see your fortune!</p>
+            <button id="fortune-btn">Get Fortune</button>
+        </div>
+
+        <div class="section lotto-section">
+            <h2>Lotto Numbers</h2>
+            <div id="lotto-numbers" class="lotto-numbers-container"></div>
+            <button id="generate-btn">Generate Numbers</button>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>

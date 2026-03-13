@@ -1,57 +1,170 @@
+:root {
+    --bg-color: #f0f0f0;
+    --container-bg: #ffffff;
+    --text-color: #333333;
+    --primary-color: #4CAF50;
+    --secondary-color: #008CBA;
+    --accent-color: #FF9800;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --container-bg: #2d2d2d;
+    --text-color: #f0f0f0;
+    --primary-color: #66bb6a;
+    --secondary-color: #29b6f6;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
 body {
-    font-family: sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.theme-toggle {
+    align-self: flex-end;
+    margin-bottom: 20px;
+}
+
+#theme-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--text-color);
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+#theme-btn:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
 }
 
 .container {
     text-align: center;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--container-bg);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    max-width: 600px;
+    width: 100%;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 h1 {
-    margin-bottom: 1.5rem;
-    color: #333;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
 }
 
+.section {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h2 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    opacity: 0.9;
+}
+
+/* Calendar Styles */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 15px;
+}
+
+.calendar-day {
+    padding: 8px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.05);
+    font-size: 0.9rem;
+}
+
+body.dark-mode .calendar-day {
+    background: rgba(255,255,255,0.1);
+}
+
+.calendar-day.today {
+    background: var(--primary-color);
+    color: white;
+    font-weight: bold;
+}
+
+/* Fortune Styles */
+#fortune-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin: 1.5rem 0;
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Lotto Styles */
 .lotto-numbers-container {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 2rem;
 }
 
 .lotto-number {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-#generate-btn {
-    padding: 10px 20px;
+/* Buttons */
+button {
+    padding: 12px 24px;
     font-size: 1rem;
     cursor: pointer;
     border: none;
-    border-radius: 5px;
-    background-color: #008CBA;
+    border-radius: 8px;
+    background-color: var(--secondary-color);
     color: white;
-    transition: background-color 0.3s;
+    transition: transform 0.2s, background-color 0.3s;
 }
 
-#generate-btn:hover {
-    background-color: #005f73;
+button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#fortune-btn {
+    background-color: var(--accent-color);
 }
