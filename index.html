@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startup & Life | 오늘의 명언 & 점심 추천</title>
+    <title>Startup & Life | 성공적인 스타트업 라이프를 위한 가이드</title>
+    <meta name="description" content="스타트업 창업가와 직장인을 위한 매일의 영감, 점심 메뉴 추천, 그리고 AI 동물상 테스트까지 제공하는 고품질 라이프스타일 플랫폼입니다.">
     <link rel="stylesheet" href="style.css">
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2693659390973442"
@@ -13,14 +14,31 @@
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
-    <div class="theme-toggle">
-        <button id="theme-btn">🌙 Dark Mode</button>
-    </div>
-    <div class="container">
-        <h1>Startup & Life</h1>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Startup & Life</div>
+            <ul class="nav-links">
+                <li><a href="#quote">오늘의 명언</a></li>
+                <li><a href="#lunch">메뉴 추천</a></li>
+                <li><a href="#animal">동물상 테스트</a></li>
+                <li><a href="#insights">스타트업 인사이트</a></li>
+                <li><a href="#contact">제휴 문의</a></li>
+            </ul>
+            <div class="theme-toggle-nav">
+                <button id="theme-btn">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- 메인 타이틀 섹션 -->
+        <section class="hero-section">
+            <h1>성공적인 Startup과 건강한 Life를 위한 조력자</h1>
+            <p class="hero-desc">매일의 영감을 얻고, 결정 장애를 해결하며, AI 기술로 즐거움을 더해보세요.</p>
+        </section>
         
         <!-- 명언 섹션 -->
-        <div class="section quote-section">
+        <section id="quote" class="section quote-section">
             <h2>오늘의 명언</h2>
             <div id="quote-container">
                 <p id="quote-en" class="quote-text">Click the button to get inspired!</p>
@@ -28,10 +46,10 @@
                 <p id="quote-author" class="quote-author"></p>
             </div>
             <button id="quote-btn">새 명언 가져오기</button>
-        </div>
+        </section>
 
         <!-- 점심 메뉴 추천 섹션 -->
-        <div class="section lunch-section">
+        <section id="lunch" class="section lunch-section">
             <h2>점심 메뉴 추천</h2>
             <div class="main-layout">
                 <div class="roulette-container">
@@ -53,18 +71,19 @@
                     </div>
                 </div>
             </div>
+        </section>
 
         <!-- 동물상 테스트 섹션 -->
-        <div class="section animal-test-section">
+        <section id="animal" class="section animal-test-section">
             <h2>나와 닮은 동물상 테스트</h2>
-            <p class="section-desc">사진을 업로드하여 강아지상인지 고양이상인지 확인해보세요!</p>
+            <p class="section-desc">최신 AI Vision 기술을 활용하여 당신의 동물상을 분석합니다.</p>
             
             <div class="upload-container" id="upload-area">
                 <div class="upload-box" id="upload-box">
                     <input type="file" id="image-upload" accept="image/*" hidden>
                     <label for="image-upload" class="upload-label">
                         <div class="upload-icon">📸</div>
-                        <span>사진을 업로드하거나 클릭하세요</span>
+                        <span>사진을 업로드하여 분석 시작</span>
                     </label>
                 </div>
                 <div id="image-preview-container" class="hidden">
@@ -72,19 +91,41 @@
                 </div>
             </div>
 
-            <div id="loading-spinner" class="hidden">모델 분석 중...</div>
+            <div id="loading-spinner" class="hidden">AI 모델 분석 중...</div>
             
             <div id="test-result-container" class="hidden">
                 <h3 id="animal-result-title">분석 결과</h3>
                 <div id="label-container"></div>
                 <button id="retry-btn">다시 하기</button>
             </div>
-        </div>
+        </section>
+
+        <!-- 스타트업 인사이트 (AdSense 승인을 위한 텍스트 콘텐츠 섹션) -->
+        <section id="insights" class="section insights-section">
+            <h2>스타트업 인사이트</h2>
+            <div class="article-grid">
+                <article class="insight-card">
+                    <h3>성공하는 창업가의 3가지 습관</h3>
+                    <p>스타트업의 성공은 거창한 아이디어보다 매일의 작은 습관에서 시작됩니다. 첫째, 고객의 피드백을 두려워하지 않는 태도...</p>
+                    <a href="#" class="read-more">더 보기</a>
+                </article>
+                <article class="insight-card">
+                    <h3>번아웃을 방지하는 워라밸 전략</h3>
+                    <p>치열한 스타트업 현장에서 지속 가능한 성장을 위해서는 전략적인 휴식이 필요합니다. 시간 관리 기법인 포모도로 기법과...</p>
+                    <a href="#" class="read-more">더 보기</a>
+                </article>
+                <article class="insight-card">
+                    <h3>2026년 주목해야 할 기술 트렌드</h3>
+                    <p>AI와 블록체인의 융합이 가져올 미래 사회의 모습과 스타트업이 준비해야 할 비즈니스 기회에 대해 심층 분석합니다.</p>
+                    <a href="#" class="read-more">더 보기</a>
+                </article>
+            </div>
+        </section>
 
         <!-- 제휴 문의 섹션 -->
-        <div class="section contact-section">
+        <section id="contact" class="section contact-section">
             <h2>제휴 문의</h2>
-            <p class="section-desc">서비스 제휴 및 비즈니스 문의는 아래 폼을 통해 남겨주세요.</p>
+            <p class="section-desc">비즈니스 협업 및 제안은 언제든 환영합니다.</p>
             <form action="https://formspree.io/f/maqpjvny" method="POST" id="contact-form">
                 <div class="form-group">
                     <label for="name">성함 / 업체명</label>
@@ -105,8 +146,33 @@
                 <button type="submit" id="submit-btn">문의하기</button>
                 <div id="form-status"></div>
             </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <p>&copy; 2026 Startup & Life. All rights reserved.</p>
+                <p>Contact: info@startupnlife.com</p>
+            </div>
+            <div class="footer-links">
+                <a href="#about">서비스 소개</a>
+                <a href="#privacy">개인정보처리방침</a>
+                <a href="#terms">이용약관</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 필수 정책 모달 (AdSense 필수 조건) -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>개인정보처리방침</h2>
+            <p>본 서비스는 사용자의 데이터를 수집하지 않으며, AI 동물상 테스트에 사용된 이미지는 서버에 저장되지 않고 브라우저 내에서만 처리됩니다.</p>
+            <p>Google AdSense 광고가 표시될 수 있으며, 이는 사용자의 브라우저 쿠키를 기반으로 할 수 있습니다.</p>
         </div>
     </div>
+
     <script src="main.js"></script>
 </body>
 </html>
