@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startup & Life Quotes | Lunch Roulette</title>
+    <title>Startup & Life | 오늘의 명언 & 점심 추천</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,23 +13,40 @@
     <div class="container">
         <h1>Startup & Life</h1>
         
+        <!-- 명언 섹션 -->
         <div class="section quote-section">
-            <h2>Today's Quote</h2>
+            <h2>오늘의 명언</h2>
             <div id="quote-container">
                 <p id="quote-en" class="quote-text">Click the button to get inspired!</p>
                 <p id="quote-ko" class="quote-subtext">버튼을 눌러 영감을 얻으세요!</p>
+                <p id="quote-author" class="quote-author"></p>
             </div>
-            <button id="quote-btn">New Quote</button>
+            <button id="quote-btn">새 명언 가져오기</button>
         </div>
 
+        <!-- 점심 메뉴 추천 섹션 -->
         <div class="section lunch-section">
-            <h2>Lunch Roulette</h2>
-            <div class="roulette-wrapper">
-                <div id="roulette-wheel" class="wheel"></div>
-                <div class="pointer">▼</div>
+            <h2>점심 메뉴 추천</h2>
+            <div class="main-layout">
+                <div class="roulette-container">
+                    <div class="roulette-wrapper">
+                        <canvas id="roulette-canvas" width="400" height="400"></canvas>
+                        <div class="pointer">▼</div>
+                    </div>
+                    <button id="spin-btn">룰렛 돌리기!</button>
+                </div>
+                
+                <div class="result-side">
+                    <div id="selected-result">
+                        <h3 id="selected-menu-name">메뉴를 골라보세요!</h3>
+                        <div id="food-image-container"></div>
+                    </div>
+                    <div class="history-container">
+                        <h4>최근 추천 메뉴 (최대 5개)</h4>
+                        <ul id="menu-history"></ul>
+                    </div>
+                </div>
             </div>
-            <div id="selected-menu">What's for lunch?</div>
-            <button id="spin-btn">Spin the Wheel!</button>
         </div>
     </div>
     <script src="main.js"></script>
