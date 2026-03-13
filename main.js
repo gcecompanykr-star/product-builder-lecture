@@ -36,6 +36,8 @@ const quotes = [
 
 function getRandomQuote() {
     const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    if (!quoteEn || !quoteKo || !quoteAuthor) return;
+    
     quoteEn.style.opacity = 0;
     quoteKo.style.opacity = 0;
     quoteAuthor.style.opacity = 0;
@@ -49,7 +51,7 @@ function getRandomQuote() {
         quoteAuthor.style.opacity = 1;
     }, 300);
 }
-quoteBtn.addEventListener('click', getRandomQuote);
+if (quoteBtn) quoteBtn.addEventListener('click', getRandomQuote);
 
 // --- Lunch Roulette Logic ---
 let menus = [
@@ -68,6 +70,7 @@ let rotation = 0;
 const colors = ["#f8dada", "#dcf8da", "#dadcf8", "#f8f8da", "#daf8f8", "#f8daf8", "#e6f8da", "#dae6f8", "#f8e6da", "#e6daf8"];
 
 function drawRoulette() {
+    if (!canvas || !ctx) return;
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const radius = centerX - 10;
@@ -99,6 +102,7 @@ function drawRoulette() {
 }
 
 function updateHistory(menu) {
+    if (!menuHistoryList) return;
     history.unshift(menu);
     if (history.length > 5) history.pop();
     
@@ -111,104 +115,192 @@ function updateHistory(menu) {
 }
 
 function fetchFoodImage(menu) {
-    // Unsplash Source is deprecated, using LoremFlickr or similar
+    if (!foodImageContainer) return;
     const imageUrl = `https://loremflickr.com/300/200/food,${menu}`;
     foodImageContainer.innerHTML = `<img src="${imageUrl}" alt="${menu}">`;
 }
 
-spinBtn.addEventListener('click', () => {
-    if (isSpinning || menus.length === 0) return;
+if (spinBtn) {
+    spinBtn.addEventListener('click', () => {
+        if (isSpinning || menus.length === 0) return;
 
-    isSpinning = true;
-    const spinCircles = 5 + Math.random() * 5;
-    const spinAngle = spinCircles * 2 * Math.PI + Math.random() * 2 * Math.PI;
-    
-    const startTime = performance.now();
-    const duration = 4000;
-
-    function animate(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
+        isSpinning = true;
+        const spinCircles = 5 + Math.random() * 5;
+        const spinAngle = spinCircles * 2 * Math.PI + Math.random() * 2 * Math.PI;
         
-        // Ease-out function
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        const currentSpin = spinAngle * easeOut;
-        
-        rotation = currentSpin;
-        drawRoulette();
+        const startTime = performance.now();
+        const duration = 4000;
 
-        if (progress < 1) {
-            requestAnimationFrame(animate);
-        } else {
-            isSpinning = false;
-            // Calculate selected menu
-            const finalRotation = rotation % (2 * Math.PI);
-            const sliceAngle = (2 * Math.PI) / menus.length;
+        function animate(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
             
-            // The pointer is at -PI/2 (top)
-            let selectedIndex = Math.floor(((1.5 * Math.PI - finalRotation) % (2 * Math.PI)) / sliceAngle);
-            if (selectedIndex < 0) selectedIndex += menus.length;
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const currentSpin = spinAngle * easeOut;
             
-            const pickedMenu = menus[selectedIndex];
-            selectedMenuName.textContent = pickedMenu;
-            
-            updateHistory(pickedMenu);
-            fetchFoodImage(pickedMenu);
-            
-            // Remove picked menu from the list
-            menus.splice(selectedIndex, 1);
-            if (menus.length === 0) {
-                spinBtn.disabled = true;
-                spinBtn.textContent = "모든 메뉴를 다 뽑았습니다!";
-            }
+            rotation = currentSpin;
             drawRoulette();
-        }
-    }
-    requestAnimationFrame(animate);
-});
 
-// Initialize
-getRandomQuote();
-drawRoulette();
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                isSpinning = false;
+                const finalRotation = rotation % (2 * Math.PI);
+                const sliceAngle = (2 * Math.PI) / menus.length;
+                
+                let selectedIndex = Math.floor(((1.5 * Math.PI - finalRotation) % (2 * Math.PI)) / sliceAngle);
+                if (selectedIndex < 0) selectedIndex += menus.length;
+                
+                const pickedMenu = menus[selectedIndex];
+                if (selectedMenuName) selectedMenuName.textContent = pickedMenu;
+                
+                updateHistory(pickedMenu);
+                fetchFoodImage(pickedMenu);
+                
+                menus.splice(selectedIndex, 1);
+                if (menus.length === 0) {
+                    spinBtn.disabled = true;
+                    spinBtn.textContent = "모든 메뉴를 다 뽑았습니다!";
+                }
+                drawRoulette();
+            }
+        }
+        requestAnimationFrame(animate);
+    });
+}
 
 // --- Contact Form Handling ---
 const contactForm = document.getElementById('contact-form');
 const formStatus = document.getElementById('form-status');
 
-contactForm.addEventListener("submit", async function(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    const submitBtn = document.getElementById('submit-btn');
-    
-    submitBtn.disabled = true;
-    submitBtn.textContent = '보내는 중...';
-    
-    fetch(event.target.action, {
-        method: contactForm.method,
-        body: data,
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(response => {
-        if (response.ok) {
-            formStatus.textContent = "문의가 성공적으로 전송되었습니다. 곧 연락드리겠습니다!";
-            formStatus.style.color = "var(--primary-color)";
-            contactForm.reset();
-        } else {
-            response.json().then(data => {
-                if (Object.hasOwn(data, 'errors')) {
-                    formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
-                } else {
-                    formStatus.textContent = "오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
-                }
-                formStatus.style.color = "var(--accent-color)";
-            })
-        }
-    }).catch(error => {
-        formStatus.textContent = "오류가 발생했습니다. 네트워크 연결을 확인해주세요.";
-        formStatus.style.color = "var(--accent-color)";
-    }).finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = '문의하기';
+if (contactForm) {
+    contactForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        const submitBtn = document.getElementById('submit-btn');
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = '보내는 중...';
+        
+        fetch(event.target.action, {
+            method: contactForm.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                formStatus.textContent = "문의가 성공적으로 전송되었습니다. 곧 연락드리겠습니다!";
+                formStatus.style.color = "var(--primary-color)";
+                contactForm.reset();
+            } else {
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        formStatus.textContent = "오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+                    }
+                    formStatus.style.color = "var(--accent-color)";
+                })
+            }
+        }).catch(error => {
+            formStatus.textContent = "오류가 발생했습니다. 네트워크 연결을 확인해주세요.";
+            formStatus.style.color = "var(--accent-color)";
+        }).finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '문의하기';
+        });
     });
-});
+}
+
+// --- Animal Face Test Logic ---
+const modelURL = "https://teachablemachine.withgoogle.com/models/9GGp5MtIlz/";
+let animalModel, maxAnimalPredictions;
+
+const imageUpload = document.getElementById('image-upload');
+const uploadBox = document.getElementById('upload-box');
+const imagePreviewContainer = document.getElementById('image-preview-container');
+const faceImage = document.getElementById('face-image');
+const loadingSpinner = document.getElementById('loading-spinner');
+const testResultContainer = document.getElementById('test-result-container');
+const animalLabelContainer = document.getElementById('label-container');
+const retryBtn = document.getElementById('retry-btn');
+
+async function loadAnimalModel() {
+    if (animalModel) return;
+    const checkpointURL = modelURL + "model.json";
+    const metadataURL = modelURL + "metadata.json";
+    animalModel = await tmImage.load(checkpointURL, metadataURL);
+    maxAnimalPredictions = animalModel.getTotalClasses();
+}
+
+if (imageUpload) {
+    imageUpload.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            faceImage.src = event.target.result;
+            uploadBox.classList.add('hidden');
+            imagePreviewContainer.classList.remove('hidden');
+            
+            loadingSpinner.classList.remove('hidden');
+            testResultContainer.classList.add('hidden');
+            
+            await predictAnimal();
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+async function predictAnimal() {
+    await loadAnimalModel();
+    const prediction = await animalModel.predict(faceImage);
+    
+    animalLabelContainer.innerHTML = '';
+    prediction.sort((a, b) => b.probability - a.probability);
+    
+    const topResult = prediction[0];
+    const resultTitle = document.getElementById('animal-result-title');
+    
+    let emoji = topResult.className === "강아지" ? "🐶" : "🐱";
+    if (resultTitle) resultTitle.textContent = `당신은 ${emoji} ${topResult.className}상입니다!`;
+
+    for (let i = 0; i < maxAnimalPredictions; i++) {
+        const classPrediction = prediction[i].className;
+        const probability = (prediction[i].probability * 100).toFixed(0);
+        
+        const barWrapper = document.createElement('div');
+        barWrapper.className = 'result-bar-wrapper';
+        
+        const typeClass = classPrediction === "강아지" ? "dog" : "cat";
+        
+        barWrapper.innerHTML = `
+            <div class="result-label-text">
+                <span>${classPrediction}</span>
+                <span>${probability}%</span>
+            </div>
+            <div class="result-bar-bg">
+                <div class="result-bar-fill ${typeClass}" style="width: ${probability}%"></div>
+            </div>
+        `;
+        animalLabelContainer.appendChild(barWrapper);
+    }
+    
+    loadingSpinner.classList.add('hidden');
+    testResultContainer.classList.remove('hidden');
+}
+
+if (retryBtn) {
+    retryBtn.addEventListener('click', () => {
+        imageUpload.value = '';
+        uploadBox.classList.remove('hidden');
+        imagePreviewContainer.classList.add('hidden');
+        testResultContainer.classList.add('hidden');
+    });
+}
+
+// Initialize
+getRandomQuote();
+drawRoulette();

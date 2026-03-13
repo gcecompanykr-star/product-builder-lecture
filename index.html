@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Startup & Life | 오늘의 명언 & 점심 추천</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Teachable Machine & TF.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
     <div class="theme-toggle">
@@ -47,6 +50,34 @@
                     </div>
                 </div>
             </div>
+
+        <!-- 동물상 테스트 섹션 -->
+        <div class="section animal-test-section">
+            <h2>나와 닮은 동물상 테스트</h2>
+            <p class="section-desc">사진을 업로드하여 강아지상인지 고양이상인지 확인해보세요!</p>
+            
+            <div class="upload-container" id="upload-area">
+                <div class="upload-box" id="upload-box">
+                    <input type="file" id="image-upload" accept="image/*" hidden>
+                    <label for="image-upload" class="upload-label">
+                        <div class="upload-icon">📸</div>
+                        <span>사진을 업로드하거나 클릭하세요</span>
+                    </label>
+                </div>
+                <div id="image-preview-container" class="hidden">
+                    <img id="face-image" src="" alt="preview">
+                </div>
+            </div>
+
+            <div id="loading-spinner" class="hidden">모델 분석 중...</div>
+            
+            <div id="test-result-container" class="hidden">
+                <h3 id="animal-result-title">분석 결과</h3>
+                <div id="label-container"></div>
+                <button id="retry-btn">다시 하기</button>
+            </div>
+        </div>
+
         <!-- 제휴 문의 섹션 -->
         <div class="section contact-section">
             <h2>제휴 문의</h2>
