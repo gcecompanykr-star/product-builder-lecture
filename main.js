@@ -55,18 +55,18 @@ if (quoteBtn) quoteBtn.addEventListener('click', getRandomQuote);
 // --- Lunch Roulette ---
 let menus = ["김치찌개", "짜장면", "파스타", "비빔밥", "치킨", "돈까스", "쌀국수", "부대찌개", "제육볶음", "햄버거", "샐러드", "초밥"];
 const menuImageMap = {
-    "김치찌개": "kimchi,stew",
-    "짜장면": "jajangmyeon,noodles",
-    "파스타": "pasta",
-    "비빔밥": "bibimbap",
-    "치킨": "fried,chicken",
-    "돈까스": "tonkatsu,pork,cutlet",
-    "쌀국수": "pho,noodles",
-    "부대찌개": "army,stew,korean",
-    "제육볶음": "spicy,pork",
-    "햄버거": "hamburger",
-    "샐러드": "salad",
-    "초밥": "sushi"
+    "김치찌개": "kimchi,stew,koreanfood",
+    "짜장면": "jajangmyeon,noodles,blackbean",
+    "파스타": "pasta,italianfood",
+    "비빔밥": "bibimbap,korean",
+    "치킨": "friedchicken,food",
+    "돈까스": "tonkatsu,porkcutlet",
+    "쌀국수": "pho,noodles,vietnamese",
+    "부대찌개": "armystew,koreanfood",
+    "제육볶음": "spicypork,koreanfood",
+    "햄버거": "hamburger,burger",
+    "샐러드": "salad,healthy",
+    "초밥": "sushi,japanese"
 };
 
 let history = [];
@@ -143,7 +143,8 @@ function updateHistory(menu) {
 function fetchFoodImage(menu) {
     if (!foodImageContainer) return;
     const searchTag = menuImageMap[menu] || "food";
-    foodImageContainer.innerHTML = `<img src="https://loremflickr.com/400/300/${searchTag}" alt="${menu}">`;
+    // Using multiple tags and /all modifier to improve image accuracy
+    foodImageContainer.innerHTML = `<img src="https://loremflickr.com/400/300/${searchTag},food/all" alt="${menu}">`;
 }
 
 // --- Animal Test ---
