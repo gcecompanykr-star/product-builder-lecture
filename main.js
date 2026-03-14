@@ -147,58 +147,6 @@ function fetchFoodImage(menu) {
     foodImageContainer.innerHTML = `<img src="https://loremflickr.com/400/300/${searchTag},food/all" alt="${menu}">`;
 }
 
-// --- Animal Test ---
-const modelURL = "https://teachablemachine.withgoogle.com/models/9GGp5MtIlz/";
-let animalModel;
-const imageUpload = document.getElementById('image-upload');
-const faceImage = document.getElementById('face-image');
-const animalLabelContainer = document.getElementById('label-container');
-
-async function loadAnimalModel() {
-    if (!animalModel) {
-        animalModel = await tmImage.load(modelURL + "model.json", modelURL + "metadata.json");
-    }
-}
-
-if (imageUpload) {
-    imageUpload.addEventListener('change', async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-            faceImage.src = event.target.result;
-            document.getElementById('upload-box').classList.add('hidden');
-            document.getElementById('image-preview-container').classList.remove('hidden');
-            document.getElementById('loading-spinner').classList.remove('hidden');
-            await loadAnimalModel();
-            const prediction = await animalModel.predict(faceImage);
-            displayAnimalResult(prediction);
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-function displayAnimalResult(prediction) {
-    document.getElementById('loading-spinner').classList.add('hidden');
-    document.getElementById('test-result-container').classList.remove('hidden');
-    prediction.sort((a, b) => b.probability - a.probability);
-    const top = prediction[0];
-    document.getElementById('animal-result-title').textContent = `당신은 ${top.className === '강아지' ? '🐶' : '🐱'} ${top.className}상!`;
-    animalLabelContainer.innerHTML = prediction.map(p => {
-        const prob = (p.probability * 100).toFixed(0);
-        const cls = p.className === '강아지' ? 'dog' : 'cat';
-        return `
-            <div class="result-bar-wrapper">
-                <div class="result-label-text"><span>${p.className}</span><span>${prob}%</span></div>
-                <div class="result-bar-bg"><div class="result-bar-fill ${cls}" style="width: ${prob}%"></div></div>
-            </div>`;
-    }).join('');
-}
-
-document.getElementById('retry-btn')?.addEventListener('click', () => {
-    location.reload();
-});
-
 // --- Modal & Navigation ---
 const modal = document.getElementById("privacy-modal");
 const privacyLink = document.querySelector('a[href="#privacy"]');
